@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cartinha para Você ❤️</title>
+<style>
+    body {
+        background: #ffe6ec;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .envelope {
+        width: 200px;
+        height: 150px;
+        background: #ff9ab5;
+        position: relative;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform .3s ease;
+    }
+
+    .envelope:hover {
+        transform: scale(1.05);
+    }
+
+    .flap {
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 75px solid #ff7799;
+        position: absolute;
+        top: -75px;
+        transition: transform .4s ease;
+        transform-origin: bottom;
+    }
+
+    .letter {
+        width: 180px;
+        height: 120px;
+        background: #fff;
+        border-radius: 5px;
+        position: absolute;
+        top: 15px;
+        left: 10px;
+        padding: 10px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: .5s ease;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .heart {
+        position: fixed;
+        font-size: 20px;
+        animation: floatUp 3s linear forwards;
+        color: #ff4d6d;
+    }
+
+    @keyframes floatUp {
+        from { transform: translateY(0); opacity: 1; }
+        to { transform: translateY(-200px); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="envelope" onclick="openLetter()">
+    <div class="flap" id="flap"></div>
+    <div class="letter" id="letter">
+        <h3>Oi, meu amor ❤️</h3>
+        <p>Só queria dizer que eu amo você demais.</p>
+    </div>
+</div>
+
+<script>
+let opened = false;
+
+function openLetter() {
+    if (opened) return;
+    opened = true;
+
+    document.getElementById("flap").style.transform = "rotateX(180deg)";
+    document.getElementById("letter").style.opacity = "1";
+    document.getElementById("letter").style.transform = "translateY(0px)";
+
+    // soltar corações
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }, i * 200);
+    }
+}
+</script>
+
+</body>
+</html>
